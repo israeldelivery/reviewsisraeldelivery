@@ -24,6 +24,7 @@
             direction: rtl;
             text-align: right;
         }
+
         header {
             text-align: center;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
@@ -31,22 +32,26 @@
             background-color: #007bff;
             color: white;
         }
+
         nav ol {
             list-style: none;
             padding: 0;
             display: flex;
             justify-content: center;
         }
+
         nav ol li {
             display: inline;
             font-size: 1em;
         }
+
         nav ol li+li:before {
             content: " > ";
             padding: 0 5px;
         }
+
         .explanation {
-            max-width: 600px;
+            max-width: 500px; /* צמצום רוחב אזור ההסבר */
             width: 100%;
             margin: 20px auto;
             padding: 20px;
@@ -55,21 +60,26 @@
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
             text-align: right;
         }
-        .explanation h1 {
-            font-size: 1.4em;
-            color: #007bff;
-            margin-bottom: 10px;
+
+        .person-image {
+            display: block;
+            margin: 0 auto 10px; /* מרכז את התמונה עם רווח למטה */
+            max-width: 80%; /* שינוי רוחב התמונה */
+            height: auto; /* שמירה על יחס גובה-רוחב */
+            border-radius: 10px;
         }
-        .explanation h2 {
-            font-size: 1.2em;
-            color: #007bff;
-            margin-bottom: 10px;
+
+        .stars-container {
+            text-align: center; /* מרכז את הכוכבים */
+            margin: 10px 0; /* רווח למעלה ולמטה */
         }
-        .explanation p {
-            font-size: 1em;
-            color: #000;
-            margin-bottom: 20px;
+
+        .star {
+            font-size: 2em; /* גודל הכוכב */
+            color: gold; /* צבע הכוכב */
+            margin: 0 5px; /* רווח בין כוכב לכוכב */
         }
+
         .review-box {
             background: #fff;
             padding: 20px;
@@ -80,8 +90,8 @@
             width: 100%;
             box-sizing: border-box;
             margin: 20px auto;
-            position: relative;
         }
+
         .review-box .review-text {
             font-size: 1.2em;
             line-height: 1.6;
@@ -90,6 +100,7 @@
             height: 4em; /* Adjust height to fit the longest possible review */
             overflow: hidden;
         }
+
         .review-box .action-btn {
             background-color: #007bff;
             color: #fff;
@@ -102,51 +113,21 @@
             width: 100%;
             box-sizing: border-box;
         }
+
         .review-box .change-review-btn {
             background-color: transparent;
             border: none;
             cursor: pointer;
             padding: 0;
+            display: block;
+            margin: 10px auto; /* רווח למעלה מתחת לביקורת */
         }
+
         .review-box .change-review-btn img {
             width: 30px;
             height: 30px;
         }
-        .steps-container {
-            margin: 20px auto;
-            text-align: center;
-            position: relative;
-        }
-        .steps-container .step-content {
-            display: none;
-        }
-        .steps-container .step-content.active {
-            display: block;
-        }
-        .steps-navigation {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-top: 20px;
-        }
-        .steps-navigation .step {
-            width: 20px;
-            height: 20px;
-            background-color: #ddd;
-            border-radius: 50%;
-            margin: 0 5px;
-        }
-        .steps-navigation .step.active {
-            background-color: #007bff;
-        }
-        .arrow {
-            font-size: 1.5em;
-            cursor: pointer;
-            margin: 0 10px;
-            user-select: none;
-            color: #007bff;
-            transform: scaleX(-1); /* Flip the arrows horizontally */
-        }
+
         footer {
             background-color: #007bff;
             color: white;
@@ -154,37 +135,19 @@
             text-align: center;
             margin-top: auto;
         }
-    .person-image {
-        display: block;
-        margin: 0 auto 20px; /* מרכז את התמונה עם רווח למטה */
-        max-width: 50%; /* שינוי רוחב התמונה ל-50% מההורה */
-        height: auto; /* שמירה על יחס גובה-רוחב */
-        border-radius: 10px;
-    }
-    .stars-container {
-        text-align: center; /* מרכז את הכוכבים */
-        margin: 10px 0; /* רווח למעלה ולמטה */
-    }
 
-    .star {
-        font-size: 2em; /* גודל הכוכב */
-        color: gold; /* צבע הכוכב */
-        margin: 0 5px; /* רווח בין כוכב לכוכב */
-    }
         @media (max-width: 768px) {
             .explanation p, .review-box p {
                 font-size: 0.9em;
             }
+
             .review-box button {
                 font-size: 0.9em;
                 padding: 8px 16px;
             }
-            .steps-navigation .step {
-                width: 15px;
-                height: 15px;
-            }
-            .arrow {
-                font-size: 1.2em;
+
+            .stars-container .star {
+                font-size: 1.5em;
             }
         }
     </style>
@@ -242,93 +205,44 @@
             window.open('https://g.page/r/CWQ2boX-b6ZxEBM/review', '_blank');
         }
 
-        let currentStep = 0;
-        function showNextStep() {
-            const buttons = document.querySelectorAll('.steps-container .step-content');
-            if (currentStep < buttons.length - 1) {
-                buttons[currentStep].classList.remove('active');
-                currentStep++;
-                buttons[currentStep].classList.add('active');
-                updateStepsIndicator();
-            }
-        }
-
-        function showPreviousStep() {
-            const buttons = document.querySelectorAll('.steps-container .step-content');
-            if (currentStep > 0) {
-                buttons[currentStep].classList.remove('active');
-                currentStep--;
-                buttons[currentStep].classList.add('active');
-                updateStepsIndicator();
-            }
-        }
-
-        function updateStepsIndicator() {
-            const steps = document.querySelectorAll('.steps-navigation .step');
-            steps.forEach((step, index) => {
-                step.classList.remove('active');
-                if (index === currentStep) {
-                    step.classList.add('active');
-                }
-            });
-        }
-
         document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('reviewText').innerText = getRandomReview();
-            document.querySelector('.steps-container .step-content').classList.add('active');
-            updateStepsIndicator();
         });
     </script>
 </head>
 <body>
     <header>
-        <h1>Review Israel Delivery</h1>
+        <h1>ביקורת על שירותי משלוחים בישראל</h1>
+        <nav>
+            <ol>
+                <li><a href="#">בית</a></li>
+                <li><a href="#">ביקורת</a></li>
+                <li><a href="#">הוספת ביקורת</a></li>
+            </ol>
+        </nav>
     </header>
-    <section>
-        <div class="explanation">
-            <img src="person.jpg" alt="Person writing a review" class="person-image">
-    <div class="stars-container">
-        <span class="star">&#9733;</span>
-        <span class="star">&#9733;</span>
-        <span class="star">&#9733;</span>
-        <span class="star">&#9733;</span>
-        <span class="star">&#9733;</span>
-    </div>
-            <h1>הסבר על התהליך של הביקורת</h1>
-            <h2>1. העתק את הביקורת</h2>
-            <p>לחץ על "העתק ביקורת" כדי להעתיק את טקסט הביקורת שנבחר ללוח שלך.</p>
-            
-            <h2>2. עבור לדף הביקורת של גוגל</h2>
-            <p>לחץ על "עבור לדף הביקורת של גוגל" כדי לפתוח את דף הביקורת של גוגל.</p>
-            
-            <h2>3. השאר ביקורת בגוגל</h2>
-            <p>בדף הביקורת של גוגל, תן דירוג של 5 כוכבים, הדבק את הביקורת שהעתקת לתוך תיבת הטקסט, ושלח.</p>
-            
-            <p>אתה יכול לנווט קדימה ואחורה בין השלבים באמצעות החיצים למטה.</p>
-        </div>
-        <div class="review-box">
-            <p id="reviewText" class="review-text"></p>
-            <button class="change-review-btn" onclick="changeReview()">
-                <img src="sync.png" alt="Change Review">
-            </button>
-            <div class="steps-container">
-                <div id="step-1" class="step-content active">
-                    <button class="action-btn" onclick="copyReview(); showNextStep()">העתק ביקורת</button>
-                </div>
-                <div id="step-2" class="step-content">
-                    <button class="action-btn" onclick="goToGoogleReview()">עבור לדף הביקורת של גוגל</button>
-                </div>
+
+    <main>
+        <section class="explanation">
+            <img src="person.jpg" alt="תמונה של אדם" class="person-image">
+            <div class="stars-container">
+                <span class="star">★</span>
+                <span class="star">★</span>
+                <span class="star">★</span>
+                <span class="star">★</span>
+                <span class="star">★</span>
             </div>
-            <div class="steps-navigation">
-                <span class="arrow" onclick="showPreviousStep()">&#9664;</span>
-                <div class="step active"></div>
-                <div class="step"></div>
-                <span class="arrow" onclick="showNextStep()">&#9654;</span>
+            <div class="review-box">
+                <div class="review-text" id="reviewText"></div>
+                <button class="action-btn" onclick="changeReview()">שנה ביקורת</button>
+                <button class="action-btn" onclick="copyReview()">העתק ביקורת</button>
+                <button class="action-btn" onclick="goToGoogleReview()">כתוב ביקורת ב-Google</button>
             </div>
-        </div>
-    </section>
+        </section>
+    </main>
+
     <footer>
-        <p>Israel Delivery. All rights reserved 2024 ©</p>
+        <p>&copy; 2024 Israel Delivery. כל הזכויות שמורות.</p>
     </footer>
 </body>
 </html>
