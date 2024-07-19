@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="he">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device=1.0">
+    <title>Review Israel Delivery</title>
+    <meta name="description" content="Read and leave reviews for Israel Delivery, the best delivery service in Israel.">
+    <meta property="og:title" content="Review Israel Delivery">
+    <meta property="og:description" content="Read and leave reviews for Israel Delivery, the best delivery service in Israel.">
+    <meta property="og:image" content="https://israeldelivery.github.io/TrustedDeliveryIL/delivery_logo.jpg">
+    <meta property="og:url" content="https://israeldelivery.github.io/TrustedDeliveryIL/review.html">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="icon" href="delivery_logo.jpg" type="image/jpeg">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background-color: #f7f7f7;
+            direction: rtl;
+            text-align: right;
+        }
+        header {
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            padding: 20px;
+            background-color: #007bff;
+            color: white;
+        }
+        nav ol {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+        }
+        nav ol li {
+            display: inline;
+            font-size: 1em;
+        }
+        nav ol li+li:before {
+            content: " > ";
+            padding: 0 5px;
+        }
+        .explanation {
+            max-width: 600px;
+            width: 100%;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            text-align: right;
+        }
+        .explanation h1 {
+            font-size: 1.4em;
+            color: #007bff;
+            margin-bottom: 10px;
+        }
+        .explanation h2 {
+            font-size: 1.2em;
+            color: #007bff;
+            margin-bottom: 10px;
+        }
+        .explanation p {
+            font-size: 1em;
+            color: #000;
+            margin-bottom: 20px;
+        }
+        .review-box {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            text-align: center;
+            max-width: 600px;
+            width: 100%;
+            box-sizing: border-box;
+            margin: 20px auto;
+            position: relative;
+        }
+        .review-box .review-text {
+            font-size: 1.2em;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            color: #555;
+            height: 4em; /* Adjust height to fit the longest possible review */
+            overflow: hidden;
+        }
+        .review-box .action-btn {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            font-size: 1em;
+            padding: 10px 20px;
+            border-radius: 5px;
+            margin: 5px;
+        }
+        .review-box .change-review-btn {
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+        }
+        .review-box .change-review-btn img {
+            width: 30px;
+            height: 30px;
+        }
+        .steps-container {
+            margin: 20px auto;
+            text-align: center;
+            position: relative;
+        }
+        .steps-container .step-content {
+            display: none;
+        }
+        .steps-container .step-content.active {
+            display: block;
+        }
+        .steps-navigation {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+        }
+        .steps-navigation .step {
+            width: 20px;
+            height: 20px;
+            background-color: #ddd;
+            border-radius: 50%;
+            margin: 0 5px;
+        }
+        .steps-navigation .step.active {
+            background-color: #007bff;
+        }
+        .arrow {
+            font-size: 1.5em;
+            cursor: pointer;
+            margin: 0 10px;
+            user-select: none;
+            color: #007bff;
+            transform: scaleX(-1); /* Flip the arrows horizontally */
+        }
+        footer {
+            background-color: #007bff;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            margin-top: auto;
+        }
+        @media (max-width: 768px) {
+            .explanation p, .review-box p {
+                font-size: 0.9em;
+            }
+            .review-box button {
+                font-size: 0.9em;
+                padding: 8px 16px;
+            }
+            .steps-navigation .step {
+                width: 15px;
+                height: 15px;
+            }
+            .arrow {
+                font-size: 1.2em;
+            }
+        }
+    </style>
+    <script>
+        const reviews = [
+            'Excellent delivery service! Fast, reliable, and professional - highly recommended for all your shipping needs in Israel.',
+            'Great service! My package arrived on time and in perfect condition. Will definitely use again.',
+            'Highly professional and efficient delivery. My documents were handled with care and arrived promptly.',
+            'Reliable and trustworthy delivery service. I have used them multiple times and they never disappoint.',
+            'Fantastic customer service and quick delivery. I couldn’t be happier with the service.',
+            'Top-notch delivery service in Israel. Always on time and very professional.',
+            'Very satisfied with the service. My goods were delivered quickly and safely.',
+            'Prompt and professional delivery. Highly recommend Israel Delivery for all your needs.',
+            'Excellent experience! The team was very helpful and ensured my package was delivered safely.',
+            'Fast, secure, and reliable. Israel Delivery is my go-to service for all my shipping needs.',
+            'Outstanding service! The delivery was quick and the staff was very friendly.',
+            'I was impressed with the speed and efficiency of Israel Delivery. Highly recommended.',
+            'Great experience from start to finish. My package arrived exactly as promised.',
+            'The best delivery service I’ve used in Israel. Fast and dependable.',
+            'Israel Delivery provides exceptional service. They exceeded my expectations.',
+            'I trust Israel Delivery with all my important shipments. They never let me down.',
+            'The team at Israel Delivery is very professional and always delivers on time.',
+            'Excellent communication and reliable delivery service. Highly recommend.',
+            'Israel Delivery offers the best delivery solutions in Israel. Very satisfied.',
+            'I’ve used Israel Delivery several times and they always provide top-notch service.',
+            'Very happy with the service. My deliveries are always on time and handled with care.',
+            'Israel Delivery is my preferred choice for all my delivery needs in Israel.',
+            'The staff is very helpful and the service is quick and reliable.',
+            'Great service and fast delivery. I will definitely use Israel Delivery again.',
+            'Highly recommend Israel Delivery for their professional and efficient service.',
+            'My package arrived ahead of schedule and in perfect condition. Thank you!',
+            'Israel Delivery made the whole process easy and stress-free. Great job!',
+            'Fantastic delivery service! They are always on time and very professional.',
+            'I can always count on Israel Delivery for prompt and reliable service.',
+            'The best delivery service in Israel by far. Excellent customer service and quick delivery.'
+        ];
+
+        function getRandomReview() {
+            const randomIndex = Math.floor(Math.random() * reviews.length);
+            return reviews[randomIndex];
+        }
+
+        function changeReview() {
+            document.getElementById('reviewText').innerText = getRandomReview();
+        }
+
+        function copyReview() {
+            const reviewText = document.getElementById('reviewText').innerText;
+            navigator.clipboard.writeText(reviewText).then(() => {
+                alert('הטקסט של הביקורת הועתק ללוח!');
+            });
+        }
+
+        function goToGoogleReview() {
+            window.open('https://g.page/r/CWQ2boX-b6ZxEBM/review', '_blank');
+        }
+
+        let currentStep = 0;
+        function showNextStep() {
+            const buttons = document.querySelectorAll('.steps-container .step-content');
+            if (currentStep < buttons.length - 1) {
+                buttons[currentStep].classList.remove('active');
+                currentStep++;
+                buttons[currentStep].classList.add('active');
+                updateStepsIndicator();
+            }
+        }
+
+        function showPreviousStep() {
+            const buttons = document.querySelectorAll('.steps-container .step-content');
+            if (currentStep > 0) {
+                buttons[currentStep].classList.remove('active');
+                currentStep--;
+                buttons[currentStep].classList.add('active');
+                updateStepsIndicator();
+            }
+        }
+
+        function updateStepsIndicator() {
+            const steps = document.querySelectorAll('.steps-navigation .step');
+            steps.forEach((step, index) => {
+                step.classList.remove('active');
+                if (index === currentStep) {
+                    step.classList.add('active');
+                }
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('reviewText').innerText = getRandomReview();
+            document.querySelector('.steps-container .step-content').classList.add('active');
+            updateStepsIndicator();
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <h1>Review Israel Delivery</h1>
+    </header>
+    <section>
+        <div class="explanation">
+            <h1>הסבר על התהליך של הביקורת</h1>
+            <h2>1. העתק את הביקורת</h2>
+            <p>לחץ על "העתק ביקורת" כדי להעתיק את טקסט הביקורת שנבחר ללוח שלך.</p>
+            
+            <h2>2. עבור לדף הביקורת של גוגל</h2>
+            <p>לחץ על "עבור לדף הביקורת של גוגל" כדי לפתוח את דף הביקורת של גוגל.</p>
+            
+            <h2>3. השאר ביקורת בגוגל</h2>
+            <p>בדף הביקורת של גוגל, תן דירוג של 5 כוכבים, הדבק את הביקורת שהעתקת לתוך תיבת הטקסט, ושלח.</p>
+            
+            <p>אתה יכול לנווט קדימה ואחורה בין השלבים באמצעות החיצים למטה.</p>
+        </div>
+        <div class="review-box">
+            <p id="reviewText" class="review-text"></p>
+            <button class="change-review-btn" onclick="changeReview()">
+                <img src="sync.png" alt="Change Review">
+            </button>
+            <div class="steps-container">
+                <div id="step-1" class="step-content active">
+                    <button class="action-btn" onclick="copyReview(); showNextStep()">העתק ביקורת</button>
+                </div>
+                <div id="step-2" class="step-content">
+                    <button class="action-btn" onclick="goToGoogleReview()">עבור לדף הביקורת של גוגל</button>
+                </div>
+            </div>
+            <div class="steps-navigation">
+                <span class="arrow" onclick="showPreviousStep()">&#9664;</span>
+                <div class="step active"></div>
+                <div class="step"></div>
+                <span class="arrow" onclick="showNextStep()">&#9654;</span>
+            </div>
+        </div>
+    </section>
+    <footer>
+        <p>Israel Delivery. All rights reserved 2024 ©</p>
+    </footer>
+</body>
+</html>
