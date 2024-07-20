@@ -107,6 +107,15 @@
             overflow: hidden;
             direction: ltr; /* כיוון קריאה משמאל לימין */
             text-align: left; /* יישור לשמאל */
+            cursor: pointer;
+            border: 1px solid transparent;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .review-box .review-text:hover, .review-box .review-text.selected {
+            background-color: #f1f1f1;
+            border-color: #007bff;
         }
 
         .review-box button {
@@ -120,10 +129,46 @@
             margin: 10px 0;
             width: calc(100% - 20px);
             box-sizing: border-box;
+            display: none;
         }
 
-        .review-box .change-review-btn {
+        .review-box .show {
+            display: block;
+        }
+
+        .review-box .steps-indicator {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        .review-box .step {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
             background-color: #007bff;
+            color: white;
+            margin: 0 10px;
+            font-size: 1.2em;
+        }
+
+        .review-box .arrow {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 30px;
+            height: 30px;
+            margin: 0 10px;
+            font-size: 1.2em;
+            transform: rotate(180deg); /* הפיכת החץ */
+        }
+
+        .review-box .step.completed {
+            background-color: #28a745;
         }
 
         footer {
@@ -153,6 +198,13 @@
 
             .stars-container .star {
                 font-size: 1.5em;
+            }
+
+            .review-box .step, .review-box .arrow {
+                font-size: 1em;
+                width: 25px;
+                height: 25px;
+                margin: 0 5px;
             }
         }
     </style>
@@ -190,28 +242,54 @@
             'The best delivery service in Israel by far. Excellent customer service and quick delivery.'
         ];
 
-        function getRandomReview() {
-            const randomIndex = Math.floor(Math.random() * reviews.length);
-            return reviews[randomIndex];
+        function getRandomReviews(num) {
+            const shuffled = reviews.sort(() => 0.5 - Math.random());
+            return shuffled.slice(0, num);
         }
 
-        function changeReview() {
-            document.getElementById('reviewText').innerText = getRandomReview();
+        function selectReview(reviewText) {
+            const reviewElements = document.querySelectorAll('.review-text');
+            reviewElements.forEach(el => el.classList.remove('selected'));
+            document.getElementById('selectedReview').innerText = reviewText;
+            const selectedElement = Array.from(reviewElements).find(el => el.innerText === reviewText);
+            selectedElement.classList.add('selected');
         }
 
         function copyReview() {
-            const reviewText = document.getElementById('reviewText').innerText;
-            navigator.clipboard.writeText(reviewText).then(() => {
-                alert('The review text has been copied to clipboard!');
-            });
+            const reviewText = document.getElementById('selectedReview').innerText;
+            if (reviewText) {
+                navigator.clipboard.writeText(reviewText).then(() => {
+                    alert('The review text has been copied to clipboard!');
+                    document.getElementById('copyButton').style.display = 'none';
+                    document.getElementById('googleReviewButton').classList.add('show');
+                    document.getElementById('backButton').classList.add('show');
+                    document.querySelector('.step-2').classList.add('completed');
+                });
+            } else {
+                alert('Please select a review first!');
+            }
         }
 
         function goToGoogleReview() {
             window.open('https://g.page/r/CWQ2boX-b6ZxEBM/review', '_blank');
         }
 
+        function goBackStep() {
+            document.getElementById('copyButton').style.display = 'block';
+            document.getElementById('googleReviewButton').classList.remove('show');
+            document.getElementById('backButton').classList.remove('show');
+            document.querySelector('.step-2').classList.remove('completed');
+        }
+
         document.addEventListener('DOMContentLoaded', () => {
-            document.getElementById('reviewText').innerText = getRandomReview();
+            const randomReviews = getRandomReviews(3);
+            const reviewElements = document.querySelectorAll('.review-text');
+            reviewElements.forEach((el, index) => {
+                el.innerText = randomReviews[index];
+                el.onclick = () => selectReview(randomReviews[index]);
+            });
+            selectReview(randomReviews[0]);
+            document.getElementById('copyButton').classList.add('show');
         });
     </script>
 </head>
@@ -237,7 +315,7 @@
                 <span class="star">★</span>
                 <span class="star">★</span>
             </div>
-            <p>תודה רבה על הביקורת החיובית שלך על שירותי המשלוחים שלנו! אנו מעריכים מאוד את המשוב שלך ומזמינים אותך לשתף את החוויה שלך עם אחרים.
+            <p>תודה רבה על הביקורת החיובית על שירותי המשלוחים שלנו! אנו מעריכים מאוד את המשוב שלך ומזמינים אותך לשתף את החוויה שלך עם אחרים.
 </p>
 <p>
 לנוחותך, ניתן לבחור כאן ביקורת חיובית, להעתיק אותה ולהעביר אותה בקלות לאתר ביקורות של גוגל. פשוט לחץ על הכפתור כדי לעבור לאתר, שם תוכל להעניק לנו 5 כוכבים ולהדביק את הביקורת שלך.
@@ -247,11 +325,19 @@
         </section>
 
         <section class="review-box">
-            <p id="reviewText" class="review-text"></p>
-            <button onclick="changeReview()">שנה ביקורת</button>
-            <button onclick="copyReview()">העתק ביקורת</button>
-            <button class="change-review-btn" onclick="goToGoogleReview()">כתוב ביקורת בגוגל</button>
+            <p class="review-text"></p>
+            <p class="review-text"></p>
+            <p class="review-text"></p>
+            <button id="copyButton" onclick="copyReview()">העתק ביקורת</button>
+            <button id="googleReviewButton" class="change-review-btn" onclick="goToGoogleReview()">כתוב ביקורת בגוגל</button>
+            <button id="backButton" class="change-review-btn" onclick="goBackStep()">חזור</button>
+            <div class="steps-indicator">
+                <div class="step step-1 completed">1</div>
+                <div class="arrow">→</div>
+                <div class="step step-2">2</div>
+            </div>
         </section>
+        <div id="selectedReview" style="display: none;"></div>
     </main>
 
     <footer>
