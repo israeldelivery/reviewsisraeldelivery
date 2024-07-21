@@ -1,3 +1,6 @@
+Here's an updated version of your HTML with more space for the text of the three reviews:
+
+```html
 <!DOCTYPE html>
 <html lang="he">
 <head>
@@ -103,7 +106,7 @@
             line-height: 1.8;
             margin-bottom: 20px;
             color: #555;
-            height: 4em;
+            height: 6em; /* Increased height */
             overflow: hidden;
             direction: ltr; /* כיוון קריאה משמאל לימין */
             text-align: left; /* יישור לשמאל */
@@ -258,7 +261,9 @@
         function copyReview() {
             const reviewText = document.getElementById('selectedReview').innerText;
             if (reviewText) {
-                navigator.clipboard.writeText(reviewText).then(() => {
+                navigator.clipboard.writeText(reviewText).then(() =>
+
+ {
                     alert('The review text has been copied to clipboard!');
                     document.getElementById('copyButton').style.display = 'none';
                     document.getElementById('googleReviewButton').classList.add('show');
@@ -345,3 +350,4 @@
     </footer>
 </body>
 </html>
+```
